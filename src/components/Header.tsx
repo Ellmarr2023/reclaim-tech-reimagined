@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -15,10 +16,10 @@ import {
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic email validation
@@ -28,21 +29,31 @@ const Header = () => {
       return;
     }
 
-    if (!firstName.trim()) {
-      toast.error("Please enter your first name");
+    if (!name.trim()) {
+      toast.error("Please enter your name");
       return;
     }
     
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Save to Supabase waitlist table
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([{ name, email }]);
+        
+      if (error) throw error;
+      
       toast.success("You've been added to our waitlist!");
       setEmail("");
-      setFirstName("");
-      setIsLoading(false);
+      setName("");
       setOpen(false);
-    }, 1000);
+    } catch (error) {
+      console.error("Error saving to waitlist:", error);
+      toast.error("There was a problem adding you to the waitlist. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,19 +72,19 @@ const Header = () => {
           <DialogHeader>
             <DialogTitle>Join the Waitlist</DialogTitle>
             <DialogDescription>
-              Enter your email and first name to get early access to Reclaim when we launch.
+              Enter your name and email to get early access to Reclaim when we launch.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4 py-2">
               <div>
-                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">First Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
                 <Input
-                  id="first-name"
+                  id="name"
                   type="text"
-                  placeholder="John"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -82,7 +93,7 @@ const Header = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="john@example.com"
+                  placeholder="your.email@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required

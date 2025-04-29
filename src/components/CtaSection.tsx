@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const CtaSection = () => {
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic email validation
@@ -19,20 +20,30 @@ const CtaSection = () => {
       return;
     }
 
-    if (!firstName.trim()) {
+    if (!name.trim()) {
       toast.error("Please enter your name");
       return;
     }
     
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Save to Supabase waitlist table
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([{ name, email }]);
+        
+      if (error) throw error;
+      
       toast.success("You've been added to our waitlist!");
       setEmail("");
-      setFirstName("");
+      setName("");
+    } catch (error) {
+      console.error("Error saving to waitlist:", error);
+      toast.error("There was a problem adding you to the waitlist. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -49,10 +60,10 @@ const CtaSection = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md mx-auto">
             <Input
               type="text"
-              placeholder="Your First Name"
+              placeholder="Enter your name"
               className="flex-grow"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
             <div className="flex flex-col sm:flex-row gap-4">
