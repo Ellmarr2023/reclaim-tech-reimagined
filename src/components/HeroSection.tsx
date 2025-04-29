@@ -71,6 +71,7 @@ const HeroSection = () => {
                 onChange={handlePhoneChange}
                 maxLength={14}
                 required
+                aria-label="Enter your phone number to join the waitlist"
               />
               <Button 
                 type="submit" 
@@ -82,7 +83,7 @@ const HeroSection = () => {
             </form>
             
             <p className="text-sm text-reclaim-darkgray/70">
-              Limited spots available for beta testers. Be among the first to use Reclaim!
+              Enter your phone number to join our waitlist. Limited spots available for beta testers!
             </p>
           </div>
           

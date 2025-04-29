@@ -1,5 +1,6 @@
+
 import React from "react";
-import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart, Monitor, Laptop, Speaker, Drill } from "lucide-react";
+import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart, Monitor, Laptop, Speaker, Drill, Smartphone } from "lucide-react";
 
 const HowItWorks = () => {
   const steps = [
@@ -62,7 +63,7 @@ const HowItWorks = () => {
     },
     { 
       name: "Smartphones", 
-      icon: <Phone className="h-10 w-10 mb-2" />,
+      icon: <Smartphone className="h-10 w-10 mb-2" />,
       description: "iPhones, Androids and other mobile devices",
       image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?w=600&h=400&fit=crop"
     },

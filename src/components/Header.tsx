@@ -78,7 +78,9 @@ const Header = () => {
           </DialogHeader>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4 py-2">
+              <label htmlFor="phone-number" className="block text-sm font-medium text-gray-700">Phone Number</label>
               <Input
+                id="phone-number"
                 type="tel"
                 placeholder="(123) 456-7890"
                 value={phoneNumber}
