@@ -1,6 +1,5 @@
-
 import React from "react";
-import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart } from "lucide-react";
+import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart, Monitor, Laptop, Speaker, Drill } from "lucide-react";
 
 const HowItWorks = () => {
   const steps = [
@@ -56,9 +55,9 @@ const HowItWorks = () => {
       image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop"
     },
     { 
-      name: "TVs & Monitors", 
-      icon: <Tv className="h-10 w-10 mb-2" />,
-      description: "Smart TVs, gaming monitors and more",
+      name: "Monitors", 
+      icon: <Monitor className="h-10 w-10 mb-2" />,
+      description: "Gaming monitors and professional displays",
       image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=400&fit=crop"
     },
     { 
@@ -66,6 +65,24 @@ const HowItWorks = () => {
       icon: <Phone className="h-10 w-10 mb-2" />,
       description: "iPhones, Androids and other mobile devices",
       image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "Laptops", 
+      icon: <Laptop className="h-10 w-10 mb-2" />,
+      description: "MacBooks, Windows laptops and Chromebooks",
+      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "Speakers", 
+      icon: <Speaker className="h-10 w-10 mb-2" />,
+      description: "Bluetooth speakers, smart speakers and more",
+      image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "Power Tools", 
+      icon: <Drill className="h-10 w-10 mb-2" />,
+      description: "Drills, saws, sanders and other tools",
+      image: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=600&h=400&fit=crop"
     },
   ];
 
