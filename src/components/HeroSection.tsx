@@ -16,7 +16,7 @@ const HeroSection = () => {
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
-      toast.error("Please enter a valid email address");
+      toast.error("Double check your email is correct!");
       return;
     }
 
