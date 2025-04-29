@@ -65,7 +65,7 @@ const HowItWorks = () => {
       name: "Smartphones", 
       icon: <Smartphone className="h-10 w-10 mb-2" />,
       description: "iPhones, Androids and other mobile devices",
-      image: "https://images.unsplash.com/photos/a-black-cell-phone-4sWDjeixAJU?w=600&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&h=400&fit=crop"
     },
     { 
       name: "Laptops", 
