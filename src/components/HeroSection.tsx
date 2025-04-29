@@ -101,7 +101,7 @@ const HeroSection = () => {
           <div className="flex-1 animate-fade-in-up">
             <div className="rounded-2xl shadow-2xl overflow-hidden bg-white">
               <img 
-                src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?w=600&h=400&fit=crop" 
+                src="https://images.unsplash.com/photo-1531297484001-80022131f5a1" 
                 alt="Reclaim App in Action" 
                 className="w-full h-auto"
               />
