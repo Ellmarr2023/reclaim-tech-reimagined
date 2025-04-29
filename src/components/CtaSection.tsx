@@ -20,7 +20,7 @@ const CtaSection = () => {
     }
 
     if (!firstName.trim()) {
-      toast.error("Please enter your first name");
+      toast.error("Please enter your name");
       return;
     }
     
