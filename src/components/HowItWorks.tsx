@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart, Monitor, Laptop, Speaker, Drill, Smartphone } from "lucide-react";
 
@@ -58,7 +59,7 @@ const HowItWorks = () => {
       name: "Monitors", 
       icon: <Monitor className="h-10 w-10 mb-2" />,
       description: "Gaming monitors and professional displays",
-      image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=400&fit=crop"
+      image: "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?w=600&h=400&fit=crop"
     },
     { 
       name: "Smartphones", 
