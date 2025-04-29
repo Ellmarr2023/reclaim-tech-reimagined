@@ -5,14 +5,16 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const CtaSection = () => {
-  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !email.includes('@')) {
-      toast.error("Please enter a valid email address");
+    // Basic phone number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneNumber || !phoneRegex.test(phoneNumber.replace(/\D/g, ''))) {
+      toast.error("Please enter a valid 10-digit phone number");
       return;
     }
     
@@ -21,9 +23,28 @@ const CtaSection = () => {
     // Simulate API call
     setTimeout(() => {
       toast.success("You've been added to our waitlist!");
-      setEmail("");
+      setPhoneNumber("");
       setIsLoading(false);
     }, 1000);
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
+    const digits = value.replace(/\D/g, '');
+    
+    // Apply formatting based on length
+    if (digits.length <= 3) {
+      return digits;
+    } else if (digits.length <= 6) {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    } else {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedNumber = formatPhoneNumber(e.target.value);
+    setPhoneNumber(formattedNumber);
   };
 
   return (
@@ -39,11 +60,12 @@ const CtaSection = () => {
           
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <Input
-              type="email"
-              placeholder="Enter your email address"
+              type="tel"
+              placeholder="(123) 456-7890"
               className="flex-grow"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={phoneNumber}
+              onChange={handlePhoneChange}
+              maxLength={14}
               required
             />
             <Button 

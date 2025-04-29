@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Search } from "lucide-react";
+import { Search, Camera, Headphones, Tv, Gamepad, Phone, ShoppingCart } from "lucide-react";
 
 const HowItWorks = () => {
   const steps = [
@@ -8,33 +8,69 @@ const HowItWorks = () => {
       id: 1,
       title: "Snap",
       description: "Take a photo of your device with our app",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
+      icon: <Camera className="h-8 w-8" />,
+      detailedSteps: [
+        "Open the Reclaim app on your smartphone",
+        "Point your camera at the electronic device",
+        "Make sure the entire device is in frame",
+        "Tap the capture button to take a clear photo"
+      ]
     },
     {
       id: 2,
       title: "Price",
       description: "Our AI finds the best price across all marketplaces",
       icon: <Search className="h-8 w-8" />,
+      detailedSteps: [
+        "Our AI instantly identifies your exact device model",
+        "We scan dozens of marketplaces in real-time",
+        "Advanced algorithms analyze pricing trends and demand",
+        "You receive the highest possible valuation for your device"
+      ]
     },
     {
       id: 3,
       title: "Sell",
       description: "We automatically list and sell your device for you",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
+      icon: <ShoppingCart className="h-8 w-8" />,
+      detailedSteps: [
+        "Select your preferred marketplace or let us choose",
+        "We generate professional listings with optimized descriptions",
+        "Your device is automatically listed at the ideal price point",
+        "Once sold, we guide you through secure packaging and shipping"
+      ]
+    },
+  ];
+
+  const deviceExamples = [
+    { 
+      name: "Gaming Controllers", 
+      icon: <Gamepad className="h-10 w-10 mb-2" />,
+      description: "Xbox, PlayStation, Nintendo and more",
+      image: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "Headphones", 
+      icon: <Headphones className="h-10 w-10 mb-2" />,
+      description: "Over-ear, in-ear, wireless and wired",
+      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "TVs & Monitors", 
+      icon: <Tv className="h-10 w-10 mb-2" />,
+      description: "Smart TVs, gaming monitors and more",
+      image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600&h=400&fit=crop"
+    },
+    { 
+      name: "Smartphones", 
+      icon: <Phone className="h-10 w-10 mb-2" />,
+      description: "iPhones, Androids and other mobile devices",
+      image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?w=600&h=400&fit=crop"
     },
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-16 md:py-24 bg-white" id="how-it-works">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -45,7 +81,7 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-20">
           {steps.map((step) => (
             <div
               key={step.id}
@@ -56,9 +92,53 @@ const HowItWorks = () => {
                 {step.icon}
               </div>
               <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-              <p className="text-reclaim-darkgray">{step.description}</p>
+              <p className="text-reclaim-darkgray mb-6">{step.description}</p>
+              
+              <div className="bg-gray-50 p-4 rounded-lg w-full">
+                <h4 className="text-sm font-semibold mb-3 text-reclaim-blue">Step-by-Step:</h4>
+                <ol className="text-left space-y-2 text-sm text-reclaim-darkgray">
+                  {step.detailedSteps.map((detailStep, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="bg-reclaim-blue text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">
+                        {index + 1}
+                      </span>
+                      <span>{detailStep}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold text-center mb-8">
+            Devices You Can <span className="gradient-text">Reclaim</span>
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {deviceExamples.map((device, index) => (
+              <div 
+                key={index} 
+                className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={device.image} 
+                    alt={device.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4 bg-white">
+                  <div className="flex items-center justify-center mb-2 text-reclaim-blue">
+                    {device.icon}
+                  </div>
+                  <h4 className="text-lg font-semibold text-center">{device.name}</h4>
+                  <p className="text-reclaim-darkgray/80 text-sm text-center">{device.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
