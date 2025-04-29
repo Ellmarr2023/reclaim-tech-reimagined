@@ -14,16 +14,22 @@ import {
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic phone number validation
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneNumber || !phoneRegex.test(phoneNumber.replace(/\D/g, ''))) {
-      toast.error("Please enter a valid 10-digit phone number");
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (!firstName.trim()) {
+      toast.error("Please enter your first name");
       return;
     }
     
@@ -32,29 +38,11 @@ const Header = () => {
     // Simulate API call
     setTimeout(() => {
       toast.success("You've been added to our waitlist!");
-      setPhoneNumber("");
+      setEmail("");
+      setFirstName("");
       setIsLoading(false);
       setOpen(false);
     }, 1000);
-  };
-
-  const formatPhoneNumber = (value: string) => {
-    // Remove all non-digits
-    const digits = value.replace(/\D/g, '');
-    
-    // Apply formatting based on length
-    if (digits.length <= 3) {
-      return digits;
-    } else if (digits.length <= 6) {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    } else {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
-    }
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedNumber = formatPhoneNumber(e.target.value);
-    setPhoneNumber(formattedNumber);
   };
 
   return (
@@ -73,21 +61,33 @@ const Header = () => {
           <DialogHeader>
             <DialogTitle>Join the Waitlist</DialogTitle>
             <DialogDescription>
-              Enter your phone number to get early access to Reclaim when we launch.
+              Enter your email and first name to get early access to Reclaim when we launch.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4 py-2">
-              <label htmlFor="phone-number" className="block text-sm font-medium text-gray-700">Phone Number</label>
-              <Input
-                id="phone-number"
-                type="tel"
-                placeholder="(123) 456-7890"
-                value={phoneNumber}
-                onChange={handlePhoneChange}
-                maxLength={14}
-                required
-              />
+              <div>
+                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">First Name</label>
+                <Input
+                  id="first-name"
+                  type="text"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
             </div>
             <DialogFooter className="mt-4">
               <Button type="submit" disabled={isLoading}>

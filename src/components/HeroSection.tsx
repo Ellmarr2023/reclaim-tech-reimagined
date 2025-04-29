@@ -5,16 +5,22 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const HeroSection = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic phone number validation
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneNumber || !phoneRegex.test(phoneNumber.replace(/\D/g, ''))) {
-      toast.error("Please enter a valid 10-digit phone number");
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (!firstName.trim()) {
+      toast.error("Please enter your first name");
       return;
     }
     
@@ -23,28 +29,10 @@ const HeroSection = () => {
     // Simulate API call
     setTimeout(() => {
       toast.success("You've been added to our waitlist!");
-      setPhoneNumber("");
+      setEmail("");
+      setFirstName("");
       setIsLoading(false);
     }, 1000);
-  };
-
-  const formatPhoneNumber = (value: string) => {
-    // Remove all non-digits
-    const digits = value.replace(/\D/g, '');
-    
-    // Apply formatting based on length
-    if (digits.length <= 3) {
-      return digits;
-    } else if (digits.length <= 6) {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
-    } else {
-      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
-    }
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedNumber = formatPhoneNumber(e.target.value);
-    setPhoneNumber(formattedNumber);
   };
 
   return (
@@ -62,28 +50,40 @@ const HeroSection = () => {
               and auto-list it for you. Sign up for exclusive early access!
             </p>
             
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md">
-              <Input
-                type="tel"
-                placeholder="(123) 456-7890"
-                className="flex-grow"
-                value={phoneNumber}
-                onChange={handlePhoneChange}
-                maxLength={14}
-                required
-                aria-label="Enter your phone number to join the waitlist"
-              />
-              <Button 
-                type="submit" 
-                className="bg-reclaim-green hover:bg-reclaim-green/90 text-white"
-                disabled={isLoading}
-              >
-                {isLoading ? "Processing..." : "Get Early Access"}
-              </Button>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Your First Name"
+                  className="flex-grow"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                  aria-label="Enter your first name to join the waitlist"
+                />
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Input
+                  type="email"
+                  placeholder="your.email@example.com"
+                  className="flex-grow"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  aria-label="Enter your email address to join the waitlist"
+                />
+                <Button 
+                  type="submit" 
+                  className="bg-reclaim-green hover:bg-reclaim-green/90 text-white"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Processing..." : "Get Early Access"}
+                </Button>
+              </div>
             </form>
             
             <p className="text-sm text-reclaim-darkgray/70">
-              Enter your phone number to join our waitlist. Limited spots available for beta testers!
+              Enter your name and email to join our waitlist. Limited spots available for beta testers!
             </p>
           </div>
           
