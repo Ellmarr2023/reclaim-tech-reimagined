@@ -12,7 +12,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ThemeProvider defaultTheme="system" storageKey="reclaim-theme">
+  <ThemeProvider defaultTheme="light" storageKey="reclaim-theme">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
